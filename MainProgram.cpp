@@ -22,6 +22,7 @@
  ******************************************************************************/
 
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 /* ===========================================================================
@@ -52,11 +53,23 @@ int main() {
 
     // TODO 1a: Declare an int variable called 'score' and set it to 75.
     //          Then print it as:  Score: 75
+    
+    int score;  
+    score = 75;
+    
+    cout << "score = " << score;
+    
 
     // TODO 1b: Declare two int variables 'x' and 'y' with values 8 and 3.
     //          Print their sum and their difference, each on its own line:
     //          Sum: 11
     //          Diff: 5
+    
+    int x = 8;
+int y = 3;
+
+cout << "Sum: " << x + y << "\n";
+cout << "Diff: " << x - y << "\n";
 
     cout << "\n";
 
@@ -81,10 +94,24 @@ int main() {
     // TODO 2a: Declare an int 'apples' = 10 and an int pointer 'pApples'
     //          that points to apples. Using the POINTER only (not 'apples'
     //          directly), add 5 to apples. Then print:  apples = 15
+    
+    int apples = 10;
+int* pApples = &apples;
+
+*pApples += 5;
+
+cout << "apples = " << apples << "\n";
 
     // TODO 2b: A reference is an alias. Declare int 'gold' = 50 and an
     //          int reference 'alias' bound to gold. Change gold to 99 THROUGH
     //          'alias'. Then print:  gold = 99
+    
+    int gold = 50;
+int& alias = gold;
+
+alias = 99;
+
+cout << "gold = " << gold << "\n";
 
     cout << "\n";
 
@@ -99,6 +126,7 @@ int main() {
     int p = 1, q = 2;
     swapByPointer(&p, &q);
     cout << "After swapByPointer:   p=" << p << " q=" << q << "\n"; // p=2 q=1
+    
 
     // Exercise 3.2 - swap using REFERENCES
     int r = 7, s = 9;
@@ -157,18 +185,25 @@ int main() {
 // Swap the two ints that a and b POINT TO (use dereferencing *a, *b).
 void swapByPointer(int* a, int* b) {
     // TODO 3.1: swap the values pointed to by a and b
+   int temp = *a;
+*a = *b;
+*b = temp;
 }
 
 // Exercise 3.2
 // Swap the two ints that a and b REFER TO (a and b are aliases).
 void swapByReference(int& a, int& b) {
     // TODO 3.2: swap a and b
+ int temp = a;
+a = b;
+b = temp;
 }
 
 // Exercise 3.3
 // Add 1 to the variable that n refers to.
 void incrementByReference(int& n) {
     // TODO 3.3: increment n by 1
+ n++;
 }
 
 // Exercise 3.4
@@ -176,7 +211,20 @@ void incrementByReference(int& n) {
 // ALSO set outCount (by reference) to how many elements were summed.
 int sumAndCount(const int arr[], int size, int& outCount) {
     // TODO 3.4a: set outCount to size
+    
+    
     // TODO 3.4b: compute and return the sum of arr[0..size-1]
+    outCount = size;
+
+int sum = 0;
+
+for (int i = 0; i < size; i++) {
+    sum += arr[i];
+}
+
+return sum;
+    
+    
     return 0; // replace this
 }
 
@@ -186,7 +234,14 @@ int sumAndCount(const int arr[], int size, int& outCount) {
 // Hint: rounding to 1 decimal -> round(celsius * 10.0) / 10.0
 void normalizeTemperature(double& celsius) {
     // TODO 4.1: implement in place (no return value)
+
+    if (abs(celsius) < 0.05) {
+        celsius = 0.0;
+    } else {
+        celsius = round(celsius * 10.0) / 10.0;
+    }
 }
+
 
 // Challenge 4.2
 // Modify 'value' in place so it stays within [low, high]:
@@ -194,4 +249,10 @@ void normalizeTemperature(double& celsius) {
 //   if value > high -> value = high
 void clampToRange(int& value, int low, int high) {
     // TODO 4.2: clamp value into [low, high]
+
+    if (value < low) {
+        value = low;
+    } else if (value > high) {
+        value = high;
+    }
 }
